@@ -18,6 +18,8 @@ public class StudentDTO extends Mensch {
         return this.vorname + ", " + this.nachname + ", " + this.geburtsdatum + ", " + this.klasse;
     }
 
+    // Die kann ich weglassen... das war ein Fehler im UML
+
     public boolean equals(Object obj) {
         if(obj instanceof StudentDTO) {
             StudentDTO student = (StudentDTO) obj;

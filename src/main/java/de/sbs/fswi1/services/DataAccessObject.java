@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +53,36 @@ public List<StudentDTO> findAll() {
     } catch (IOException e) {
         System.out.println("Fehler beim Lesen der CSV-Datei: " + e.getMessage());
     }
-
     return students;
+
+    // neu: 02.07.24
+
+    try (HttpClient client = HttpClient.newHttpClient()){
+
+        HttpRequest request = 
+            HttpRequest.newBuilder()
+            .uri(new URI("https://jsonplaceholder.typicode.com/posts"))
+            .GET()
+            .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            StringBuilder rawJason = new StringBuilder(response.body()
+            .replace("[\n", ""])
+            .replace("\n]")
+            
+            );
+
+            return response.body();
+
+
+    }
+
+
+
+
+
+
 }
 
 }
